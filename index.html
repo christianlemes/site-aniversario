@@ -55,11 +55,11 @@
       grid-template-columns: 1fr 1fr;
       align-items: center;
       justify-content: center;
-      gap: 30px;
+      gap: 40px;
       padding: 40px 30px 60px;
       position: relative;
       z-index: 2;
-      max-width: 1200px;
+      max-width: 1250px;
       margin: 0 auto;
     }
 
@@ -128,7 +128,173 @@
       opacity: 1;
     }
 
-    .card, .extra-card {
+    .right-panel {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 520px;
+      position: relative;
+    }
+
+    .letter-stage {
+      width: 100%;
+      max-width: 760px;
+      min-height: 520px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* CARTA FECHADA */
+    .envelope-scene {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.7s ease, transform 0.7s ease;
+      z-index: 4;
+    }
+
+    .envelope-scene.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.96);
+    }
+
+    .envelope {
+      position: relative;
+      width: min(520px, 92%);
+      height: 320px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .envelope:hover {
+      transform: translateY(-4px);
+    }
+
+    .envelope-shadow {
+      position: absolute;
+      left: 30px;
+      right: 30px;
+      bottom: 6px;
+      height: 34px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.10);
+      filter: blur(16px);
+      z-index: 0;
+    }
+
+    .envelope-body {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, #f6d3de 0%, #efbccb 100%);
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,0.40);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.14);
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .envelope-body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(140deg, rgba(255,255,255,0.14), transparent 40%),
+        linear-gradient(-140deg, rgba(255,255,255,0.10), transparent 42%);
+      pointer-events: none;
+    }
+
+    .envelope-flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 58%;
+      background: linear-gradient(180deg, #f9dbe3, #f0c4d1);
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      z-index: 3;
+      box-shadow: inset 0 -10px 20px rgba(0, 0, 0, 0.04);
+    }
+
+    .envelope-left,
+    .envelope-right,
+    .envelope-bottom {
+      position: absolute;
+      background: rgba(255,255,255,0.14);
+      z-index: 2;
+    }
+
+    .envelope-left {
+      left: 0;
+      bottom: 0;
+      width: 50%;
+      height: 62%;
+      clip-path: polygon(0 0, 100% 100%, 0 100%);
+    }
+
+    .envelope-right {
+      right: 0;
+      bottom: 0;
+      width: 50%;
+      height: 62%;
+      clip-path: polygon(100% 0, 100% 100%, 0 100%);
+    }
+
+    .envelope-bottom {
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 52%;
+      clip-path: polygon(0 100%, 50% 0, 100% 100%);
+      background: rgba(255,255,255,0.10);
+    }
+
+    .seal {
+      position: absolute;
+      top: 56%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 82px;
+      height: 82px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ff4f87, #ff7aa2);
+      box-shadow: 0 8px 24px rgba(255, 79, 135, 0.36);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 33px;
+      z-index: 5;
+      border: 4px solid rgba(255,255,255,0.35);
+    }
+
+    .envelope-text {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 5;
+      text-align: center;
+      color: #fff7fa;
+      width: 90%;
+    }
+
+    .envelope-text h3 {
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+      text-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+    }
+
+    .envelope-text p {
+      font-size: 0.98rem;
+      opacity: 0.95;
+    }
+
+    /* CONTEÚDO REVELADO */
+    .content-card {
       width: 100%;
       max-width: 760px;
       padding: 35px 28px;
@@ -141,27 +307,38 @@
       -webkit-backdrop-filter: blur(12px);
       position: relative;
       overflow: hidden;
+      opacity: 0;
+      transform: translateY(30px) scale(0.96);
+      pointer-events: none;
+      transition: all 0.85s ease;
+      z-index: 2;
     }
 
-    .card {
-      animation: aparecerCard 1.2s ease;
+    .content-card.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
     }
 
-    .extra-card {
-      max-width: 1000px;
-      margin: 0 auto 40px;
-      animation: aparecerCard 1.4s ease;
+    .shine {
+      position: absolute;
+      inset: 0;
+      border-radius: 28px;
+      background: linear-gradient(
+        120deg,
+        rgba(255,255,255,0.04) 20%,
+        rgba(255,255,255,0.12) 40%,
+        rgba(255,255,255,0.04) 60%
+      );
+      transform: translateX(-100%);
+      animation: shineMove 5s infinite;
+      pointer-events: none;
     }
 
-    @keyframes aparecerCard {
-      from {
-        opacity: 0;
-        transform: translateY(25px) scale(0.97);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
+    @keyframes shineMove {
+      0% { transform: translateX(-120%); }
+      50% { transform: translateX(120%); }
+      100% { transform: translateX(120%); }
     }
 
     .mini-text {
@@ -251,6 +428,23 @@
       font-style: italic;
     }
 
+    .extra-card {
+      width: 100%;
+      max-width: 1000px;
+      padding: 35px 28px;
+      text-align: center;
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      position: relative;
+      overflow: hidden;
+      margin: 0 auto 40px;
+      z-index: 2;
+    }
+
     .reasons {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -318,27 +512,6 @@
       }
     }
 
-    .shine {
-      position: absolute;
-      inset: 0;
-      border-radius: 28px;
-      background: linear-gradient(
-        120deg,
-        rgba(255,255,255,0.04) 20%,
-        rgba(255,255,255,0.12) 40%,
-        rgba(255,255,255,0.04) 60%
-      );
-      transform: translateX(-100%);
-      animation: shineMove 5s infinite;
-      pointer-events: none;
-    }
-
-    @keyframes shineMove {
-      0% { transform: translateX(-120%); }
-      50% { transform: translateX(120%); }
-      100% { transform: translateX(120%); }
-    }
-
     @media (max-width: 900px) {
       .container {
         grid-template-columns: 1fr;
@@ -355,7 +528,16 @@
         height: 280px;
       }
 
-      .card, .extra-card {
+      .right-panel {
+        min-height: 460px;
+      }
+
+      .letter-stage {
+        min-height: 460px;
+      }
+
+      .content-card,
+      .extra-card {
         max-width: 100%;
       }
 
@@ -365,7 +547,8 @@
     }
 
     @media (max-width: 600px) {
-      .card, .extra-card {
+      .content-card,
+      .extra-card {
         padding: 24px 18px;
         border-radius: 22px;
       }
@@ -386,6 +569,22 @@
         width: 230px;
         height: 230px;
         animation: bouncePhotoMobile 6s ease-in-out infinite;
+      }
+
+      .letter-stage {
+        min-height: 400px;
+      }
+
+      .envelope {
+        height: 280px;
+      }
+
+      .envelope-text h3 {
+        font-size: 1.2rem;
+      }
+
+      .envelope-text p {
+        font-size: 0.92rem;
       }
 
       .shine {
@@ -425,32 +624,53 @@
       </div>
     </div>
 
-    <div class="card">
-      <div class="shine"></div>
+    <div class="right-panel">
+      <div class="letter-stage">
+        <div class="envelope-scene" id="envelopeScene">
+          <div class="envelope" id="envelope">
+            <div class="envelope-shadow"></div>
+            <div class="envelope-body"></div>
+            <div class="envelope-flap"></div>
+            <div class="envelope-left"></div>
+            <div class="envelope-right"></div>
+            <div class="envelope-bottom"></div>
+            <div class="seal">💖</div>
 
-      <p class="mini-text">Para o amor da minha vida</p>
-      <h1>Feliz Aniversário, Meu Amor 💖</h1>
-      <p class="subtitle">Preparei isso com carinho só para você</p>
+            <div class="envelope-text">
+              <h3>Uma cartinha para você</h3>
+              <p>Clique para abrir ✨</p>
+            </div>
+          </div>
+        </div>
 
-      <div class="buttons">
-        <button id="botaoSurpresa">Abrir surpresa ✨</button>
-        <button id="botaoMusica">Tocar música 🎵</button>
-      </div>
+        <div class="content-card" id="contentCard">
+          <div class="shine"></div>
 
-      <div class="message" id="mensagem">
-        Você é uma das partes mais lindas da minha vida.
-        Cada momento ao seu lado se transforma em uma lembrança especial, e eu sou muito grato por ter você comigo.
-        Hoje eu só quero te lembrar do quanto você é incrível, especial, forte, linda e amada.
-        Que seu aniversário seja tão maravilhoso quanto o seu sorriso inesquecível. 💗
+          <p class="mini-text">Para o amor da minha vida</p>
+          <h1>Feliz Aniversário, Meu Amor 💖</h1>
+          <p class="subtitle">Preparei isso com carinho só para você</p>
 
-        <div class="assinatura">Com todo o meu amor ❤️</div>
+          <div class="buttons">
+            <button id="botaoSurpresa">Abrir surpresa ✨</button>
+            <button id="botaoMusica">Tocar música 🎵</button>
+          </div>
+
+          <div class="message" id="mensagem">
+            Você é uma das partes mais lindas da minha vida.
+            Cada momento ao seu lado se transforma em uma lembrança especial, e eu sou muito grato por ter você comigo.
+            Hoje eu só quero te lembrar do quanto você é incrível, especial, forte, linda e amada.
+            Que seu aniversário seja tão maravilhoso quanto o seu sorriso inesquecível. 💗
+
+            <div class="assinatura">Com todo o meu amor ❤️</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
   <section class="extra-card">
     <div class="shine"></div>
-    <p class="mini-text">Mais um pedacinho de Você</p>
+    <p class="mini-text">Mais um pedacinho de você</p>
     <h2>Alguns motivos pelos quais você é tão especial 💕</h2>
 
     <div class="reasons">
@@ -470,9 +690,11 @@
   </section>
 
   <script>
+    const envelope = document.getElementById("envelope");
+    const envelopeScene = document.getElementById("envelopeScene");
+    const contentCard = document.getElementById("contentCard");
     const botaoSurpresa = document.getElementById("botaoSurpresa");
     const botaoMusica = document.getElementById("botaoMusica");
-    const botaoFoto = document.getElementById("botaoFoto");
     const mensagem = document.getElementById("mensagem");
     const musica = document.getElementById("musica");
     const fotos = document.querySelectorAll(".carousel img");
@@ -480,6 +702,19 @@
     let index = 0;
     let musicaJaIniciada = false;
     let musicaTocando = false;
+    let cartaAberta = false;
+
+    envelope.addEventListener("click", (e) => {
+      if (cartaAberta) return;
+
+      cartaAberta = true;
+      envelopeScene.classList.add("hidden");
+      contentCard.classList.add("show");
+      criarExplosaoCoracoes(
+        e.clientX || window.innerWidth / 2,
+        e.clientY || window.innerHeight / 2
+      );
+    });
 
     botaoSurpresa.addEventListener("click", (e) => {
       mensagem.classList.toggle("show");
@@ -514,13 +749,8 @@
         }
       } catch (erro) {
         console.log("Erro no controle da música:", erro);
-        alert("Verifique se o arquivo ./audio/always-been-you.mp3 está correto.");
+        alert("Verifique se o arquivo de áudio está correto.");
       }
-    });
-
-    botaoFoto.addEventListener("click", () => {
-      trocarFoto();
-      criarExplosaoCoracoes(window.innerWidth / 2, window.innerHeight / 2);
     });
 
     function trocarFoto() {
