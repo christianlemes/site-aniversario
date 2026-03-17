@@ -13,9 +13,14 @@
       font-family: "Poppins", "Segoe UI", sans-serif;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       min-height: 100vh;
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: auto;
       position: relative;
       color: white;
       background: linear-gradient(135deg, #ffd6e7, #ffc2d1, #ffe5ec);
@@ -29,6 +34,7 @@
         radial-gradient(circle at 20% 20%, rgba(255,255,255,0.25), transparent 30%),
         radial-gradient(circle at 80% 30%, rgba(255,255,255,0.18), transparent 28%),
         radial-gradient(circle at 50% 80%, rgba(255,255,255,0.15), transparent 30%);
+      pointer-events: none;
     }
 
     .overlay {
@@ -39,6 +45,7 @@
         rgba(255, 192, 203, 0.12),
         rgba(255, 182, 193, 0.18)
       );
+      pointer-events: none;
     }
 
     .container {
@@ -49,7 +56,7 @@
       align-items: center;
       justify-content: center;
       gap: 30px;
-      padding: 30px;
+      padding: 40px 30px 60px;
       position: relative;
       z-index: 2;
       max-width: 1200px;
@@ -73,6 +80,7 @@
       border: 1px solid rgba(255, 255, 255, 0.45);
       box-shadow: 0 20px 45px rgba(0, 0, 0, 0.18);
       backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       position: relative;
       overflow: hidden;
       animation: bouncePhoto 5.5s ease-in-out infinite;
@@ -88,24 +96,12 @@
     }
 
     @keyframes bouncePhoto {
-      0% {
-        transform: translate(0px, 0px) rotate(-2deg);
-      }
-      20% {
-        transform: translate(35px, -15px) rotate(2deg);
-      }
-      40% {
-        transform: translate(-30px, 18px) rotate(-1deg);
-      }
-      60% {
-        transform: translate(20px, 24px) rotate(2deg);
-      }
-      80% {
-        transform: translate(-18px, -12px) rotate(-2deg);
-      }
-      100% {
-        transform: translate(0px, 0px) rotate(-2deg);
-      }
+      0% { transform: translate(0px, 0px) rotate(-2deg); }
+      20% { transform: translate(20px, -10px) rotate(2deg); }
+      40% { transform: translate(-18px, 14px) rotate(-1deg); }
+      60% { transform: translate(12px, 16px) rotate(2deg); }
+      80% { transform: translate(-10px, -8px) rotate(-2deg); }
+      100% { transform: translate(0px, 0px) rotate(-2deg); }
     }
 
     .carousel {
@@ -132,7 +128,7 @@
       opacity: 1;
     }
 
-    .card {
+    .card, .extra-card {
       width: 100%;
       max-width: 760px;
       padding: 35px 28px;
@@ -142,9 +138,19 @@
       border: 1px solid rgba(255, 255, 255, 0.22);
       box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
       backdrop-filter: blur(12px);
-      animation: aparecerCard 1.2s ease;
+      -webkit-backdrop-filter: blur(12px);
       position: relative;
       overflow: hidden;
+    }
+
+    .card {
+      animation: aparecerCard 1.2s ease;
+    }
+
+    .extra-card {
+      max-width: 1000px;
+      margin: 0 auto 40px;
+      animation: aparecerCard 1.4s ease;
     }
 
     @keyframes aparecerCard {
@@ -166,11 +172,19 @@
       margin-bottom: 10px;
     }
 
+    h1, h2 {
+      text-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+    }
+
     h1 {
       font-size: clamp(2rem, 4vw, 3rem);
       line-height: 1.2;
       margin-bottom: 12px;
-      text-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+    }
+
+    h2 {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      margin-bottom: 18px;
     }
 
     .subtitle {
@@ -180,13 +194,20 @@
       opacity: 0.95;
     }
 
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+
     button {
       border: none;
       outline: none;
       cursor: pointer;
-      padding: 15px 32px;
+      padding: 15px 24px;
       border-radius: 999px;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 600;
       color: white;
       background: linear-gradient(135deg, #ff4f87, #ff7aa2);
@@ -220,7 +241,7 @@
 
     .message.show {
       opacity: 1;
-      max-height: 500px;
+      max-height: 1200px;
     }
 
     .assinatura {
@@ -230,13 +251,37 @@
       font-style: italic;
     }
 
+    .reasons {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    .reason-box {
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fffafc;
+      line-height: 1.6;
+      box-shadow: 0 8px 22px rgba(0,0,0,0.1);
+    }
+
+    .reason-box span {
+      display: block;
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+
     .floating-heart {
-      position: absolute;
+      position: fixed;
       bottom: -30px;
       color: rgba(255, 255, 255, 0.75);
       animation: subir 8s linear forwards;
       pointer-events: none;
       z-index: 1;
+      user-select: none;
     }
 
     @keyframes subir {
@@ -259,6 +304,7 @@
       pointer-events: none;
       z-index: 10;
       animation: explodir 900ms ease-out forwards;
+      user-select: none;
     }
 
     @keyframes explodir {
@@ -296,8 +342,8 @@
     @media (max-width: 900px) {
       .container {
         grid-template-columns: 1fr;
-        gap: 20px;
-        padding: 20px;
+        gap: 24px;
+        padding: 24px 18px 40px;
       }
 
       .photo-area {
@@ -309,14 +355,19 @@
         height: 280px;
       }
 
-      .card {
+      .card, .extra-card {
         max-width: 100%;
+      }
+
+      .reasons {
+        grid-template-columns: 1fr;
       }
     }
 
     @media (max-width: 600px) {
-      .card {
-        padding: 28px 20px;
+      .card, .extra-card {
+        padding: 24px 18px;
+        border-radius: 22px;
       }
 
       .subtitle {
@@ -329,13 +380,25 @@
 
       button {
         width: 100%;
-        max-width: 260px;
       }
 
       .photo-frame {
-        width: 240px;
-        height: 240px;
+        width: 230px;
+        height: 230px;
+        animation: bouncePhotoMobile 6s ease-in-out infinite;
       }
+
+      .shine {
+        animation-duration: 7s;
+      }
+    }
+
+    @keyframes bouncePhotoMobile {
+      0% { transform: translate(0, 0) rotate(-1deg); }
+      25% { transform: translate(8px, -6px) rotate(1deg); }
+      50% { transform: translate(-6px, 6px) rotate(-1deg); }
+      75% { transform: translate(6px, 4px) rotate(1deg); }
+      100% { transform: translate(0, 0) rotate(-1deg); }
     }
   </style>
 </head>
@@ -354,10 +417,10 @@
         <div class="photo-glow"></div>
 
         <div class="carousel">
-          <img src="./img/foto 1.jpeg" class="active" alt="Foto 1">
-          <img src="./img/foto 2.jpeg" alt="Foto 2">
-          <img src="./img/foto 3.jpeg" alt="Foto 3">
-          <img src="./img/foto 4 .jpeg" alt="Foto 4">
+          <img src="./img/foto 1.jpeg" class="active" alt="Nossa foto especial 1">
+          <img src="./img/foto 2.jpeg" alt="Nossa foto especial 2">
+          <img src="./img/foto 3.jpeg" alt="Nossa foto especial 3">
+          <img src="./img/foto 4 .jpeg" alt="Nossa foto especial 4">
         </div>
       </div>
     </div>
@@ -369,7 +432,11 @@
       <h1>Feliz Aniversário, Meu Amor 💖</h1>
       <p class="subtitle">Preparei isso com carinho só para você</p>
 
-      <button id="botaoSurpresa">Clique aqui ✨</button>
+      <div class="buttons">
+        <button id="botaoSurpresa">Abrir surpresa ✨</button>
+        <button id="botaoMusica">Tocar música 🎵</button>
+        <button id="botaoFoto">Próxima foto 📸</button>
+      </div>
 
       <div class="message" id="mensagem">
         Você é uma das partes mais lindas da minha vida.
@@ -382,34 +449,89 @@
     </div>
   </div>
 
+  <section class="extra-card">
+    <div class="shine"></div>
+    <p class="mini-text">Mais um pedacinho de nós</p>
+    <h2>Alguns motivos pelos quais você é tão especial 💕</h2>
+
+    <div class="reasons">
+      <div class="reason-box">
+        <span>💖</span>
+        Seu jeito torna tudo mais leve, mais bonito e mais cheio de vida.
+      </div>
+      <div class="reason-box">
+        <span>✨</span>
+        Seu sorriso ilumina até os dias mais comuns e transforma tudo ao redor.
+      </div>
+      <div class="reason-box">
+        <span>🌷</span>
+        Estar com você faz qualquer momento simples parecer inesquecível.
+      </div>
+    </div>
+  </section>
+
   <script>
-    const botao = document.getElementById("botaoSurpresa");
+    const botaoSurpresa = document.getElementById("botaoSurpresa");
+    const botaoMusica = document.getElementById("botaoMusica");
+    const botaoFoto = document.getElementById("botaoFoto");
     const mensagem = document.getElementById("mensagem");
     const musica = document.getElementById("musica");
     const fotos = document.querySelectorAll(".carousel img");
 
     let index = 0;
     let musicaJaIniciada = false;
+    let musicaTocando = false;
 
-    botao.addEventListener("click", (e) => {
-      mensagem.classList.add("show");
-      criarExplosaoCoracoes(e.clientX, e.clientY);
+    botaoSurpresa.addEventListener("click", (e) => {
+      mensagem.classList.toggle("show");
+      criarExplosaoCoracoes(e.clientX || window.innerWidth / 2, e.clientY || window.innerHeight / 2);
       criarExplosaoCoracoes(window.innerWidth / 2, window.innerHeight / 2);
-      botao.innerText = "Te amo 💖";
+      botaoSurpresa.innerText = mensagem.classList.contains("show") ? "Surpresa aberta 💖" : "Abrir surpresa ✨";
 
       if (!musicaJaIniciada) {
         musica.volume = 0.5;
         musica.play().then(() => {
           musicaJaIniciada = true;
+          musicaTocando = true;
+          botaoMusica.innerText = "Pausar música ⏸";
         }).catch((erro) => {
           console.log("Erro ao tocar a música:", erro);
-          alert("Não consegui tocar a música. Verifique se o arquivo está na pasta ./audio com o nome always-been-you.mp3");
         });
       }
     });
 
+    botaoMusica.addEventListener("click", async () => {
+      try {
+        if (!musicaTocando) {
+          musica.volume = 0.5;
+          await musica.play();
+          musicaJaIniciada = true;
+          musicaTocando = true;
+          botaoMusica.innerText = "Pausar música ⏸";
+        } else {
+          musica.pause();
+          musicaTocando = false;
+          botaoMusica.innerText = "Tocar música 🎵";
+        }
+      } catch (erro) {
+        console.log("Erro no controle da música:", erro);
+        alert("Verifique se o arquivo ./audio/always-been-you.mp3 está correto.");
+      }
+    });
+
+    botaoFoto.addEventListener("click", () => {
+      trocarFoto();
+      criarExplosaoCoracoes(window.innerWidth / 2, window.innerHeight / 2);
+    });
+
+    function trocarFoto() {
+      fotos[index].classList.remove("active");
+      index = (index + 1) % fotos.length;
+      fotos[index].classList.add("active");
+    }
+
     function criarExplosaoCoracoes(x, y) {
-      const total = 18;
+      const total = 12;
 
       for (let i = 0; i < total; i++) {
         const heart = document.createElement("span");
@@ -417,7 +539,7 @@
         heart.innerHTML = ["💖", "💕", "💗", "✨"][Math.floor(Math.random() * 4)];
 
         const angle = (Math.PI * 2 * i) / total;
-        const distance = 60 + Math.random() * 50;
+        const distance = 50 + Math.random() * 40;
 
         const moveX = Math.cos(angle) * distance + "px";
         const moveY = Math.sin(angle) * distance + "px";
@@ -429,9 +551,7 @@
 
         document.body.appendChild(heart);
 
-        setTimeout(() => {
-          heart.remove();
-        }, 900);
+        setTimeout(() => heart.remove(), 900);
       }
     }
 
@@ -444,19 +564,16 @@
       heart.style.animationDuration = (6 + Math.random() * 4) + "s";
 
       document.body.appendChild(heart);
-
-      setTimeout(() => {
-        heart.remove();
-      }, 10000);
+      setTimeout(() => heart.remove(), 10000);
     }
 
-    setInterval(criarCoracaoFlutuando, 800);
+    setInterval(criarCoracaoFlutuando, 1200);
 
-    setInterval(() => {
-      fotos[index].classList.remove("active");
-      index = (index + 1) % fotos.length;
-      fotos[index].classList.add("active");
-    }, 3000);
+    if (fotos.length > 1) {
+      setInterval(() => {
+        trocarFoto();
+      }, 4000);
+    }
   </script>
 
 </body>
