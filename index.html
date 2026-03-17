@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feliz Aniversário ❤️</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", "Segoe UI", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow: hidden;
+      position: relative;
+      color: white;
+      background: linear-gradient(135deg, #ffd6e7, #ffc2d1, #ffe5ec);
+    }
+
+    .background-glow {
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.25), transparent 30%),
+        radial-gradient(circle at 80% 30%, rgba(255,255,255,0.18), transparent 28%),
+        radial-gradient(circle at 50% 80%, rgba(255,255,255,0.15), transparent 30%);
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background: linear-gradient(
+        rgba(255, 192, 203, 0.12),
+        rgba(255, 182, 193, 0.18)
+      );
+    }
+
+    .container {
+      width: 100%;
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      padding: 30px;
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .photo-area {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      min-height: 500px;
+    }
+
+    .photo-frame {
+      width: 350px;
+      height: 350px;
+      padding: 10px;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.18);
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+      animation: bouncePhoto 5.5s ease-in-out infinite;
+    }
+
+    .photo-glow {
+      position: absolute;
+      inset: -12px;
+      border-radius: 36px;
+      background: radial-gradient(circle, rgba(255,255,255,0.28), transparent 70%);
+      z-index: -1;
+      filter: blur(16px);
+    }
+
+    @keyframes bouncePhoto {
+      0% {
+        transform: translate(0px, 0px) rotate(-2deg);
+      }
+      20% {
+        transform: translate(35px, -15px) rotate(2deg);
+      }
+      40% {
+        transform: translate(-30px, 18px) rotate(-1deg);
+      }
+      60% {
+        transform: translate(20px, 24px) rotate(2deg);
+      }
+      80% {
+        transform: translate(-18px, -12px) rotate(-2deg);
+      }
+      100% {
+        transform: translate(0px, 0px) rotate(-2deg);
+      }
+    }
+
+    .carousel {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      border-radius: 22px;
+      overflow: hidden;
+    }
+
+    .carousel img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 22px;
+      opacity: 0;
+      transition: opacity 1s ease;
+      display: block;
+    }
+
+    .carousel img.active {
+      opacity: 1;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 760px;
+      padding: 35px 28px;
+      text-align: center;
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+      backdrop-filter: blur(12px);
+      animation: aparecerCard 1.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @keyframes aparecerCard {
+      from {
+        opacity: 0;
+        transform: translateY(25px) scale(0.97);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .mini-text {
+      font-size: 14px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #ffe6ee;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.2;
+      margin-bottom: 12px;
+      text-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      color: #fff3f7;
+      margin-bottom: 28px;
+      opacity: 0.95;
+    }
+
+    button {
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 15px 32px;
+      border-radius: 999px;
+      font-size: 18px;
+      font-weight: 600;
+      color: white;
+      background: linear-gradient(135deg, #ff4f87, #ff7aa2);
+      box-shadow: 0 8px 24px rgba(255, 79, 135, 0.38);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 12px 28px rgba(255, 79, 135, 0.48);
+      filter: brightness(1.05);
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    .message {
+      margin-top: 26px;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #fffafc;
+      max-width: 620px;
+      margin-left: auto;
+      margin-right: auto;
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.9s ease;
+    }
+
+    .message.show {
+      opacity: 1;
+      max-height: 500px;
+    }
+
+    .assinatura {
+      margin-top: 18px;
+      font-size: 1rem;
+      color: #ffe5ee;
+      font-style: italic;
+    }
+
+    .floating-heart {
+      position: absolute;
+      bottom: -30px;
+      color: rgba(255, 255, 255, 0.75);
+      animation: subir 8s linear forwards;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    @keyframes subir {
+      0% {
+        transform: translateY(0) scale(0.8);
+        opacity: 0;
+      }
+      15% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-110vh) scale(1.4);
+        opacity: 0;
+      }
+    }
+
+    .burst-heart {
+      position: fixed;
+      font-size: 18px;
+      pointer-events: none;
+      z-index: 10;
+      animation: explodir 900ms ease-out forwards;
+    }
+
+    @keyframes explodir {
+      0% {
+        transform: translate(0, 0) scale(0.6);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--x), var(--y)) scale(1.4);
+        opacity: 0;
+      }
+    }
+
+    .shine {
+      position: absolute;
+      inset: 0;
+      border-radius: 28px;
+      background: linear-gradient(
+        120deg,
+        rgba(255,255,255,0.04) 20%,
+        rgba(255,255,255,0.12) 40%,
+        rgba(255,255,255,0.04) 60%
+      );
+      transform: translateX(-100%);
+      animation: shineMove 5s infinite;
+      pointer-events: none;
+    }
+
+    @keyframes shineMove {
+      0% { transform: translateX(-120%); }
+      50% { transform: translateX(120%); }
+      100% { transform: translateX(120%); }
+    }
+
+    @media (max-width: 900px) {
+      .container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 20px;
+      }
+
+      .photo-area {
+        min-height: auto;
+      }
+
+      .photo-frame {
+        width: 280px;
+        height: 280px;
+      }
+
+      .card {
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        padding: 28px 20px;
+      }
+
+      .subtitle {
+        font-size: 0.95rem;
+      }
+
+      .message {
+        font-size: 1rem;
+      }
+
+      button {
+        width: 100%;
+        max-width: 260px;
+      }
+
+      .photo-frame {
+        width: 240px;
+        height: 240px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="background-glow"></div>
+  <div class="overlay"></div>
+
+  <audio id="musica" preload="auto" loop>
+    <source src="./Shawn_Mendes_-_Always_Been_You_(mp3.pm).mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="container">
+    <div class="photo-area">
+      <div class="photo-frame">
+        <div class="photo-glow"></div>
+
+        <div class="carousel">
+          <img src="./img/foto 1.jpeg" class="active" alt="Foto 1">
+          <img src="./img/foto 2.jpeg" alt="Foto 2">
+          <img src="./img/foto 3.jpeg" alt="Foto 3">
+          <img src="./img/foto 4 .jpeg" alt="Foto 4">
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="shine"></div>
+
+      <p class="mini-text">Para o amor da minha vida</p>
+      <h1>Feliz Aniversário, Meu Amor 💖</h1>
+      <p class="subtitle">Preparei isso com carinho só para você</p>
+
+      <button id="botaoSurpresa">Clique aqui ✨</button>
+
+      <div class="message" id="mensagem">
+        Você é uma das partes mais lindas da minha vida.
+        Cada momento ao seu lado se transforma em uma lembrança especial, e eu sou muito grato por ter você comigo.
+        Hoje eu só quero te lembrar do quanto você é incrível, especial, forte, linda e amada.
+        Que seu aniversário seja tão maravilhoso quanto o seu sorriso e tão inesquecível quanto os momentos que vivemos juntos. 💗
+
+        <div class="assinatura">Com todo o meu amor ❤️</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const botao = document.getElementById("botaoSurpresa");
+    const mensagem = document.getElementById("mensagem");
+    const musica = document.getElementById("musica");
+    const fotos = document.querySelectorAll(".carousel img");
+
+    let index = 0;
+    let musicaJaIniciada = false;
+
+    botao.addEventListener("click", (e) => {
+      mensagem.classList.add("show");
+      criarExplosaoCoracoes(e.clientX, e.clientY);
+      criarExplosaoCoracoes(window.innerWidth / 2, window.innerHeight / 2);
+      botao.innerText = "Te amo 💖";
+
+      if (!musicaJaIniciada) {
+        musica.volume = 0.5;
+        musica.play().then(() => {
+          musicaJaIniciada = true;
+        }).catch((erro) => {
+          console.log("Erro ao tocar a música:", erro);
+          alert("Não consegui tocar a música. Verifique se o arquivo está na pasta ./audio com o nome always-been-you.mp3");
+        });
+      }
+    });
+
+    function criarExplosaoCoracoes(x, y) {
+      const total = 18;
+
+      for (let i = 0; i < total; i++) {
+        const heart = document.createElement("span");
+        heart.classList.add("burst-heart");
+        heart.innerHTML = ["💖", "💕", "💗", "✨"][Math.floor(Math.random() * 4)];
+
+        const angle = (Math.PI * 2 * i) / total;
+        const distance = 60 + Math.random() * 50;
+
+        const moveX = Math.cos(angle) * distance + "px";
+        const moveY = Math.sin(angle) * distance + "px";
+
+        heart.style.left = x + "px";
+        heart.style.top = y + "px";
+        heart.style.setProperty("--x", moveX);
+        heart.style.setProperty("--y", moveY);
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+          heart.remove();
+        }, 900);
+      }
+    }
+
+    function criarCoracaoFlutuando() {
+      const heart = document.createElement("div");
+      heart.classList.add("floating-heart");
+      heart.innerHTML = ["❤", "💖", "💕", "💗"][Math.floor(Math.random() * 4)];
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = (12 + Math.random() * 22) + "px";
+      heart.style.animationDuration = (6 + Math.random() * 4) + "s";
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 10000);
+    }
+
+    setInterval(criarCoracaoFlutuando, 800);
+
+    setInterval(() => {
+      fotos[index].classList.remove("active");
+      index = (index + 1) % fotos.length;
+      fotos[index].classList.add("active");
+    }, 3000);
+  </script>
+
+</body>
+</html>
